@@ -15,3 +15,4 @@ Cada Activity implica una demo distinta. Se agregan en una lista mediante un Rec
 
 - Demo Frutas: Se guarda una lista de objetos en SharedPreferences como json usando la librería Gson.
 - Demo Bitmap - Base 64: Dos métodos para trabajar con la conversión de Bitmap a Base64 y viceversa.
+- Demo Geolocalización: Implementación de LocationManager para manejar geolocalización devolviendo latitud y longitud.

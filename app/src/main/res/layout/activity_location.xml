@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="@string/title_activity_location"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TableLayout
+        android:id="@+id/tlLocation"
+        android:padding="10dp"
+        android:stretchColumns="1,2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow>
+
+            <ImageView
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_location"/>
+
+            <EditText
+                android:id="@+id/etLat"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:hint="@string/lat"
+                android:enabled="false" />
+
+            <EditText
+                android:id="@+id/etLng"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:hint="@string/lng"
+                android:enabled="false" />
+
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

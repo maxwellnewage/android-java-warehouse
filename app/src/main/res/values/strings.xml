@@ -9,4 +9,9 @@
     <string name="list_fruits_holder_activity_storage_manager">La lista esta vacía! agregá una :)</string>
 
     <string name="title_activity_bitmap_b64">Bitmap - B64</string>
+
+    <string name="title_activity_location">Location Demo</string>
+    <string name="lat">Latitud</string>
+    <string name="lng">Longitud</string>
+    <string name="location_disabled">Geolocalización desactivada!</string>
 </resources>
