@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".storage.StorageActivity" />
+        <activity android:name=".bitmap_b64.BitmapB64Activity" />
     </application>
 
 </manifest>
