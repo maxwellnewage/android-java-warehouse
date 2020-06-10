@@ -10,7 +10,7 @@ public class Utils {
     public static ArrayList<Demo> getDemoList() {
         ArrayList<Demo> demoList = new ArrayList<>();
 
-        demoList.add(new Demo("Gson Preferences Manager", StorageActivity.class));
+        demoList.add(new Demo("Demo Frutas - Gson Preferences Manager", StorageActivity.class));
 
         return demoList;
     }
