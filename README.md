@@ -17,3 +17,4 @@ Cada Activity implica una demo distinta. Se agregan en una lista mediante un Rec
 - Bitmap - Base 64: Dos métodos para trabajar con la conversión de Bitmap a Base64 y viceversa.
 - Geolocalización: Implementación de LocationManager para manejar geolocalización devolviendo latitud y longitud.
 - Simple Camera: Intent a la camara nativa de android y captura de imagen en Bitmap.
+- Retrofit & Glide Demo: Servicios con Retrofit, carga de imagenes via URL con Glide y una API de gatos, necesitas algo mas?

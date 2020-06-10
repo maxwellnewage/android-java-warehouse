@@ -17,4 +17,5 @@
 
     <string name="title_activity_simple_camera">Simple Camera Demo</string>
     <string name="bt_take_picture">Tomar Foto</string>
+    <string name="bt_cat_request">Dame una buena foto de gatitos</string>
 </resources>
