@@ -8,4 +8,4 @@ No tengo idea como llegaste, pero bienvenido/a!  La idea de este repo es que sea
 - IDE Android Studio v3.6.3
 
 ## Demos
-Nada por aqui de momento :)
+Cada Activity implica una demo distinta. Se agregan en una lista mediante un RecyclerView, las cuales se pueden probar a medida que se van sumando nuevas demos.

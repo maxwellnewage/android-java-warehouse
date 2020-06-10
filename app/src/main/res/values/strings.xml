@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Android Warehouse</string>
     <string name="text_holder_demo">Posible Demo</string>
+    <string name="title_activity_storage_manager">Storage Manager</string>
+    <string name="et_fruit_hint">Escribime una fruta que te guste!</string>
+    <string name="bt_add_fruit">Agregar Fruta</string>
+    <string name="list_fruits_activity_storage_manager">Lista de Frutas que te gustan</string>
+    <string name="list_fruits_holder_activity_storage_manager">La lista esta vacía! agregá una :)</string>
 </resources>

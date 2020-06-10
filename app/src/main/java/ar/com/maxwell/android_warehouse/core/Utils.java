@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.maxwell.android_warehouse.MainActivity;
+import ar.com.maxwell.android_warehouse.storage.StorageActivity;
 
 public class Utils {
     public static ArrayList<Demo> getDemoList() {
         ArrayList<Demo> demoList = new ArrayList<>();
 
-        demoList.add(new Demo("Demo de prueba!", MainActivity.class));
+        demoList.add(new Demo("Gson Preferences Manager", StorageActivity.class));
 
         return demoList;
     }
