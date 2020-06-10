@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="@string/title_activity_simple_camera"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/ivPhoto"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_preview_picture"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+
+    <Button
+        android:id="@+id/btTakePicture"
+        android:text="@string/bt_take_picture"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

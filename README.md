@@ -13,6 +13,7 @@ Este proyecto fue pensado para clonarse directamente desde File -> New -> Projec
 ## Demos
 Cada Activity implica una demo distinta. Se agregan en una lista mediante un RecyclerView, las cuales se pueden probar a medida que se van sumando nuevas demos.
 
-- Demo Frutas: Se guarda una lista de objetos en SharedPreferences como json usando la librería Gson.
-- Demo Bitmap - Base 64: Dos métodos para trabajar con la conversión de Bitmap a Base64 y viceversa.
-- Demo Geolocalización: Implementación de LocationManager para manejar geolocalización devolviendo latitud y longitud.
+- Frutas: Se guarda una lista de objetos en SharedPreferences como json usando la librería Gson.
+- Bitmap - Base 64: Dos métodos para trabajar con la conversión de Bitmap a Base64 y viceversa.
+- Geolocalización: Implementación de LocationManager para manejar geolocalización devolviendo latitud y longitud.
+- Simple Camera: Intent a la camara nativa de android y captura de imagen en Bitmap.

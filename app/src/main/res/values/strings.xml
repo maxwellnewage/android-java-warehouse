@@ -14,4 +14,7 @@
     <string name="lat">Latitud</string>
     <string name="lng">Longitud</string>
     <string name="location_disabled">Geolocalización desactivada!</string>
+
+    <string name="title_activity_simple_camera">Simple Camera Demo</string>
+    <string name="bt_take_picture">Tomar Foto</string>
 </resources>
