@@ -10,7 +10,7 @@ import ar.com.maxwell.android_warehouse.geolocalization.LocationActivity;
 import ar.com.maxwell.android_warehouse.network.CatPhotoActivity;
 import ar.com.maxwell.android_warehouse.storage.StorageActivity;
 
-public class Utils {
+public class DemoRepository {
     public static ArrayList<Demo> getDemoList() {
         ArrayList<Demo> demoList = new ArrayList<>();
 

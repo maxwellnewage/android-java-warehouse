@@ -1,12 +1,11 @@
 package ar.com.maxwell.android_warehouse;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import ar.com.maxwell.android_warehouse.core.Demo;
 import ar.com.maxwell.android_warehouse.core.DemoAdapter;
-import ar.com.maxwell.android_warehouse.core.Utils;
+import ar.com.maxwell.android_warehouse.core.DemoRepository;
 
 import android.os.Bundle;
 
@@ -28,7 +27,7 @@ public class MainActivity extends BaseActivity {
 
         rvDemos.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-        ArrayList<Demo> demoList = Utils.getDemoList();
+        ArrayList<Demo> demoList = DemoRepository.getDemoList();
 
         DemoAdapter adapter = new DemoAdapter(this, demoList);
 
