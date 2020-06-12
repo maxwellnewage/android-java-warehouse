@@ -18,4 +18,7 @@
     <string name="title_activity_simple_camera">Simple Camera Demo</string>
     <string name="bt_take_picture">Tomar Foto</string>
     <string name="bt_cat_request">Dame una buena foto de gatitos</string>
+    <string name="text_time">El tiempo es oro, y lo estas perdiendo cada segundo que lees este mensaje aburrido. Lo siento :D</string>
+    <string name="text_human">La salud es importante, asi que deja de comer en KFC (recordatorio para mi yo del futuro)</string>
+    <string name="text_notes">Toma nota de las cosas que quieres hacer este año! El tiempo pasa volando :)</string>
 </resources>

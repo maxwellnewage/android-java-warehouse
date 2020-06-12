@@ -9,6 +9,7 @@ import ar.com.maxwell.android_warehouse.camera.SimpleCameraActivity;
 import ar.com.maxwell.android_warehouse.geolocalization.LocationActivity;
 import ar.com.maxwell.android_warehouse.network.CatPhotoActivity;
 import ar.com.maxwell.android_warehouse.storage.StorageActivity;
+import ar.com.maxwell.android_warehouse.viewpager.SimpleVPActivity;
 
 public class DemoRepository {
     public static ArrayList<Demo> getDemoList() {
@@ -19,6 +20,7 @@ public class DemoRepository {
         demoList.add(new Demo("Demo Geolocalización", LocationActivity.class));
         demoList.add(new Demo("Demo Simple Camera", SimpleCameraActivity.class));
         demoList.add(new Demo("Retrofit & Glide Demo", CatPhotoActivity.class));
+        demoList.add(new Demo("View Pager Demo", SimpleVPActivity.class));
 
         return demoList;
     }
