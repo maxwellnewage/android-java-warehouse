@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -31,8 +32,10 @@ import ar.com.maxwell.android_warehouse.BaseActivity;
 import ar.com.maxwell.android_warehouse.R;
 import ar.com.maxwell.android_warehouse.commons.Utils;
 
+@androidx.camera.core.ExperimentalGetImage
 public class CustomCameraActivity extends BaseActivity {
     PreviewView mPreviewView;
+    ImageView ivPreview;
     private int REQUEST_CODE_PERMISSIONS = 1001;
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
     private Executor executor = Executors.newSingleThreadExecutor();
@@ -43,6 +46,7 @@ public class CustomCameraActivity extends BaseActivity {
         setContentView(R.layout.activity_camera_custom);
 
         mPreviewView = findViewById(R.id.camera);
+        ivPreview = findViewById(R.id.ivPreview);
 
         if (allPermissionsGranted()) {
             startCamera(); //start camera if permission has been granted by user
@@ -55,25 +59,20 @@ public class CustomCameraActivity extends BaseActivity {
 
         final ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
 
-        cameraProviderFuture.addListener(new Runnable() {
-            @Override
-            public void run() {
-                try {
+        cameraProviderFuture.addListener(() -> {
+            try {
 
-                    ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
-                    bindPreview(cameraProvider);
+                ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
+                bindPreview(cameraProvider);
 
-                } catch (ExecutionException | InterruptedException e) {
-                    // No errors need to be handled for this Future.
-                    // This should never be reached.
-                }
+            } catch (ExecutionException | InterruptedException e) {
+                // No errors need to be handled for this Future.
+                // This should never be reached.
             }
         }, ContextCompat.getMainExecutor(this));
     }
 
-    @androidx.camera.core.ExperimentalGetImage
     void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
-
         Preview preview = new Preview.Builder().build();
 
         CameraSelector cameraSelector = new CameraSelector.Builder()
@@ -83,18 +82,17 @@ public class CustomCameraActivity extends BaseActivity {
         ImageAnalysis imageAnalysis = new ImageAnalysis.Builder()
                 .build();
 
-        imageAnalysis.setAnalyzer(executor, new ImageAnalysis.Analyzer() {
-            @Override
-            public void analyze(@NonNull ImageProxy image) {
+        imageAnalysis.setAnalyzer(executor, image -> {
 
-                if(image.getImage() != null) {
-                    byte[] data = Utils.YUV_420_888toNV21(image.getImage());
-                    byte[] finalData = Utils.NV21toJPEG(data, image.getWidth(), image.getHeight());
-                    Bitmap bitmap = Utils.getImageFromByteArray(finalData);
-                }
+            if(image.getImage() != null) {
+                byte[] data = Utils.YUV_420_888toNV21(image.getImage());
+                byte[] finalData = Utils.NV21toJPEG(data, image.getWidth(), image.getHeight());
+                Bitmap bitmap = Utils.getImageFromByteArray(finalData);
 
-                image.close();
+                runOnUiThread(() -> ivPreview.setImageBitmap(bitmap));
             }
+
+            image.close();
         });
 
         preview.setSurfaceProvider(mPreviewView.createSurfaceProvider());
