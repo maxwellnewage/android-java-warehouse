@@ -5,6 +5,7 @@ import java.util.List;
 
 import ar.com.maxwell.android_warehouse.MainActivity;
 import ar.com.maxwell.android_warehouse.bitmap_b64.BitmapB64Activity;
+import ar.com.maxwell.android_warehouse.camera.CustomCameraActivity;
 import ar.com.maxwell.android_warehouse.camera.SimpleCameraActivity;
 import ar.com.maxwell.android_warehouse.geolocalization.LocationActivity;
 import ar.com.maxwell.android_warehouse.network.CatPhotoActivity;
@@ -21,6 +22,7 @@ public class DemoRepository {
         demoList.add(new Demo("Demo Simple Camera", SimpleCameraActivity.class));
         demoList.add(new Demo("Retrofit & Glide Demo", CatPhotoActivity.class));
         demoList.add(new Demo("View Pager Demo", SimpleVPActivity.class));
+        demoList.add(new Demo("Custom Camera Demo", CustomCameraActivity.class));
 
         return demoList;
     }
