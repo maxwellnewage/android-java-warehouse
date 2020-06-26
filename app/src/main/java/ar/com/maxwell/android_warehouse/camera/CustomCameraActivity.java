@@ -1,10 +1,7 @@
 package ar.com.maxwell.android_warehouse.camera;
 
-import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -16,29 +13,19 @@ import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.camera.core.Camera;
-import androidx.camera.core.CameraSelector;
-import androidx.camera.core.ImageAnalysis;
-import androidx.camera.core.ImageCapture;
-import androidx.camera.core.ImageProxy;
-import androidx.camera.core.Preview;
-import androidx.camera.extensions.HdrImageCaptureExtender;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.LifecycleOwner;
 import ar.com.maxwell.android_warehouse.BaseActivity;
 import ar.com.maxwell.android_warehouse.R;
-import ar.com.maxwell.android_warehouse.commons.Utils;
 
-@androidx.camera.core.ExperimentalGetImage
-public class CustomCameraActivity extends BaseActivity {
+public abstract class CustomCameraActivity extends BaseActivity {
     PreviewView mPreviewView;
     ImageView ivPreview;
     private int REQUEST_CODE_PERMISSIONS = 1001;
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
-    private Executor executor = Executors.newSingleThreadExecutor();
+    public Executor executor = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,32 +59,7 @@ public class CustomCameraActivity extends BaseActivity {
         }, ContextCompat.getMainExecutor(this));
     }
 
-    void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
-        Preview preview = new Preview.Builder().build();
-
-        CameraSelector cameraSelector = new CameraSelector.Builder()
-                .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-                .build();
-
-        ImageAnalysis imageAnalysis = new ImageAnalysis.Builder()
-                .build();
-
-        imageAnalysis.setAnalyzer(executor, image -> {
-
-            if(image.getImage() != null) {
-                byte[] data = Utils.YUV_420_888toNV21(image.getImage());
-                byte[] finalData = Utils.NV21toJPEG(data, image.getWidth(), image.getHeight());
-                Bitmap bitmap = Utils.getImageFromByteArray(finalData);
-
-                runOnUiThread(() -> ivPreview.setImageBitmap(bitmap));
-            }
-
-            image.close();
-        });
-
-        preview.setSurfaceProvider(mPreviewView.createSurfaceProvider());
-        Camera camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalysis);
-    }
+    abstract void bindPreview(@NonNull ProcessCameraProvider cameraProvider);
 
     private boolean allPermissionsGranted() {
         for (String permission : REQUIRED_PERMISSIONS) {
