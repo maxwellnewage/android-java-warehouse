@@ -1,11 +1,17 @@
 package ar.com.maxwell.android_warehouse.core;
 
+import android.os.Bundle;
+
+import com.otaliastudios.cameraview.controls.Facing;
+
 import java.util.ArrayList;
 
 import ar.com.maxwell.android_warehouse.bitmap_b64.BitmapB64Activity;
 import ar.com.maxwell.android_warehouse.camera.androidx.CustomCameraBackActivity;
 import ar.com.maxwell.android_warehouse.camera.androidx.CustomCameraFrontActivity;
 import ar.com.maxwell.android_warehouse.camera.SimpleCameraActivity;
+import ar.com.maxwell.android_warehouse.camera.otaliastudios.OtaliaCameraActivity;
+import ar.com.maxwell.android_warehouse.commons.Constants;
 import ar.com.maxwell.android_warehouse.geolocalization.LocationActivity;
 import ar.com.maxwell.android_warehouse.network.CatPhotoActivity;
 import ar.com.maxwell.android_warehouse.storage.StorageActivity;
@@ -23,7 +29,13 @@ public class DemoRepository {
         demoList.add(new Demo("View Pager Demo", SimpleVPActivity.class));
         demoList.add(new Demo("Custom Camera Demo (Back)", CustomCameraBackActivity.class));
         demoList.add(new Demo("Custom Camera Demo (Front)", CustomCameraFrontActivity.class));
-        demoList.add(new Demo("Otalia Camera (Front)", CustomCameraFrontActivity.class));
+
+        Bundle otaliaBundle = new Bundle();
+        otaliaBundle.putSerializable(Constants.EXTRA_OTALIA_FACING, Facing.FRONT);
+        demoList.add(new Demo("Otalia Camera (Front)", OtaliaCameraActivity.class, otaliaBundle));
+
+        otaliaBundle.putSerializable(Constants.EXTRA_OTALIA_FACING, Facing.BACK);
+        demoList.add(new Demo("Otalia Camera (Back)", OtaliaCameraActivity.class, otaliaBundle));
 
         return demoList;
     }

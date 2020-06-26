@@ -7,6 +7,7 @@ import android.graphics.ImageFormat;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.media.Image;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
@@ -45,5 +46,9 @@ public class Utils {
         Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length, options);
         Canvas canvas = new Canvas(bmp);
         return bmp;
+    }
+
+    public static void log(String msg) {
+        Log.e(Constants.DEBUG_WAREHOUSE, msg);
     }
 }

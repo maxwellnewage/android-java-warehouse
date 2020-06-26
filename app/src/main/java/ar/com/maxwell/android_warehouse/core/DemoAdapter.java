@@ -2,6 +2,7 @@ package ar.com.maxwell.android_warehouse.core;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import ar.com.maxwell.android_warehouse.R;
+import ar.com.maxwell.android_warehouse.commons.Constants;
 
 public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.DemoViewHolder> {
     Context context;
@@ -36,7 +38,7 @@ public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.DemoViewHolder
 
         holder.tvName.setText(demo.getName());
 
-        holder.llDemoContainer.setOnClickListener(view -> runDemo(demo.getActivity()));
+        holder.llDemoContainer.setOnClickListener(view -> runDemo(demo.getActivity(), demo.getBundle()));
     }
 
     @Override
@@ -44,8 +46,9 @@ public class DemoAdapter extends RecyclerView.Adapter<DemoAdapter.DemoViewHolder
         return demoList.size();
     }
 
-    private void runDemo(Class activity) {
+    private void runDemo(Class activity, Bundle bundle) {
         Intent intent = new Intent(context, activity);
+        if (bundle != null) intent.putExtras(bundle);
         context.startActivity(intent);
     }
 

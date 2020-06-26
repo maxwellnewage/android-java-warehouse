@@ -13,16 +13,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import ar.com.maxwell.android_warehouse.BaseActivity;
 import ar.com.maxwell.android_warehouse.R;
+import ar.com.maxwell.android_warehouse.commons.Constants;
 import ar.com.maxwell.android_warehouse.commons.Utils;
 
 public class OtaliaCameraActivity extends BaseActivity implements FrameProcessor {
     CameraView cvDetection;
     ImageView ivPreview;
+    Facing facing;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otalia_camera);
+
+        facing = (Facing) getIntent().getSerializableExtra(Constants.EXTRA_OTALIA_FACING);
 
         cvDetection = findViewById(R.id.cvDetection);
         ivPreview = findViewById(R.id.ivPreview);
@@ -38,7 +42,7 @@ public class OtaliaCameraActivity extends BaseActivity implements FrameProcessor
         cvDetection = findViewById(R.id.cvDetection);
         cvDetection.setLifecycleOwner(this);
         cvDetection.addFrameProcessor(this);
-        cvDetection.setFacing(Facing.FRONT);
+        cvDetection.setFacing(facing);
     }
 
     @Override
@@ -57,7 +61,14 @@ public class OtaliaCameraActivity extends BaseActivity implements FrameProcessor
 
     @Override
     public void process(@NonNull Frame frame) {
-        Bitmap bitmap = Utils.getImageFromByteArray(frame.getData());
+        Utils.log("frame");
+
+        int width = frame.getSize().getWidth();
+        int height = frame.getSize().getHeight();
+
+        byte[] finalData = Utils.NV21toJPEG(frame.getData(), width, height);
+
+        Bitmap bitmap = Utils.getImageFromByteArray(finalData);
 
         runOnUiThread(() -> ivPreview.setImageBitmap(bitmap));
     }
