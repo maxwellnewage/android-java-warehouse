@@ -1,4 +1,4 @@
-package ar.com.maxwell.android_warehouse.camera;
+package ar.com.maxwell.android_warehouse.camera.androidx;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;

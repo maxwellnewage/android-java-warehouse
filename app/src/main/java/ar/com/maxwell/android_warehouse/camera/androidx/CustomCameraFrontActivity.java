@@ -1,7 +1,6 @@
-package ar.com.maxwell.android_warehouse.camera;
+package ar.com.maxwell.android_warehouse.camera.androidx;
 
 import android.graphics.Bitmap;
-import android.view.Surface;
 
 import androidx.annotation.NonNull;
 import androidx.camera.core.Camera;

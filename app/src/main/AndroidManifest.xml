@@ -28,8 +28,8 @@
         <activity android:name=".bitmap_b64.BitmapB64Activity" android:parentActivityName=".MainActivity" />
         <activity android:name=".geolocalization.LocationActivity" android:parentActivityName=".MainActivity" />
 
-        <activity android:name=".camera.CustomCameraBackActivity" android:parentActivityName=".MainActivity" android:screenOrientation="landscape" />
-        <activity android:name=".camera.CustomCameraFrontActivity" android:parentActivityName=".MainActivity" android:screenOrientation="portrait" />
+        <activity android:name=".camera.androidx.CustomCameraBackActivity" android:parentActivityName=".MainActivity" android:screenOrientation="landscape" />
+        <activity android:name=".camera.androidx.CustomCameraFrontActivity" android:parentActivityName=".MainActivity" android:screenOrientation="portrait" />
         <activity android:name=".camera.SimpleCameraActivity" android:parentActivityName=".MainActivity" />
 
         <activity android:name=".network.CatPhotoActivity" android:parentActivityName=".MainActivity" />
