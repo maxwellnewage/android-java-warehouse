@@ -23,6 +23,7 @@ public class DemoRepository {
         demoList.add(new Demo("View Pager Demo", SimpleVPActivity.class));
         demoList.add(new Demo("Custom Camera Demo (Back)", CustomCameraBackActivity.class));
         demoList.add(new Demo("Custom Camera Demo (Front)", CustomCameraFrontActivity.class));
+        demoList.add(new Demo("Otalia Camera (Front)", CustomCameraFrontActivity.class));
 
         return demoList;
     }
