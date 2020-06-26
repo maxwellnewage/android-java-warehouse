@@ -1,6 +1,7 @@
 package ar.com.maxwell.android_warehouse;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import ar.com.maxwell.android_warehouse.core.Demo;
@@ -22,10 +23,13 @@ public class MainActivity extends BaseActivity {
 
         rvDemos.setHasFixedSize(true);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        rvDemos.setLayoutManager(linearLayoutManager);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+//        rvDemos.setLayoutManager(linearLayoutManager);
 
-        rvDemos.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        rvDemos.setLayoutManager(gridLayoutManager);
+
+//        rvDemos.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         ArrayList<Demo> demoList = DemoRepository.getDemoList();
 

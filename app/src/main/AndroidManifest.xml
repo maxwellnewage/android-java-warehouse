@@ -30,10 +30,10 @@
         <activity android:name=".bitmap_b64.BitmapB64Activity" android:parentActivityName=".MainActivity" />
         <activity android:name=".geolocalization.LocationActivity" android:parentActivityName=".MainActivity" />
 
-        <activity android:name=".camera.androidx.CustomCameraBackActivity" android:parentActivityName=".MainActivity" android:screenOrientation="landscape" />
-        <activity android:name=".camera.androidx.CustomCameraFrontActivity" android:parentActivityName=".MainActivity" android:screenOrientation="portrait" />
-        <activity android:name=".camera.otaliastudios.OtaliaCameraActivity" android:parentActivityName=".MainActivity" android:screenOrientation="portrait" />
-        <activity android:name=".camera.SimpleCameraActivity" android:parentActivityName=".MainActivity" />
+        <activity android:name=".camera.androidx.CustomCameraBackActivity" android:theme="@style/Theme.AppCompat.NoActionBar" android:screenOrientation="landscape" />
+        <activity android:name=".camera.androidx.CustomCameraFrontActivity" android:theme="@style/Theme.AppCompat.NoActionBar" android:screenOrientation="portrait" />
+        <activity android:name=".camera.otaliastudios.OtaliaCameraActivity" android:theme="@style/Theme.AppCompat.NoActionBar" android:screenOrientation="portrait" />
+        <activity android:name=".camera.SimpleCameraActivity" android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <activity android:name=".network.CatPhotoActivity" android:parentActivityName=".MainActivity" />
         <activity android:name=".viewpager.SimpleVPActivity" android:theme="@style/Theme.AppCompat.NoActionBar" />

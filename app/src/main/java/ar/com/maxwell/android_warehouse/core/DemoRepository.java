@@ -21,7 +21,7 @@ public class DemoRepository {
     public static ArrayList<Demo> getDemoList() {
         ArrayList<Demo> demoList = new ArrayList<>();
 
-        demoList.add(new Demo("Demo Frutas - Gson Preferences Manager", StorageActivity.class));
+        demoList.add(new Demo("Gson Preferences Manager", StorageActivity.class));
         demoList.add(new Demo("Demo Bitmap - Base 64", BitmapB64Activity.class));
         demoList.add(new Demo("Demo Geolocalización", LocationActivity.class));
         demoList.add(new Demo("Demo Simple Camera", SimpleCameraActivity.class));
