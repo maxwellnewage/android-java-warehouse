@@ -10,6 +10,7 @@ import ar.com.maxwell.android_warehouse.bitmap_b64.BitmapB64Activity;
 import ar.com.maxwell.android_warehouse.camera.androidx.CustomCameraBackActivity;
 import ar.com.maxwell.android_warehouse.camera.androidx.CustomCameraFrontActivity;
 import ar.com.maxwell.android_warehouse.camera.SimpleCameraActivity;
+import ar.com.maxwell.android_warehouse.camera.androidx.firebase.FirebaseBarcodeDetectorActivity;
 import ar.com.maxwell.android_warehouse.camera.otaliastudios.OtaliaCameraActivity;
 import ar.com.maxwell.android_warehouse.commons.Constants;
 import ar.com.maxwell.android_warehouse.geolocalization.LocationActivity;
@@ -36,6 +37,8 @@ public class DemoRepository {
 
         otaliaBundle.putSerializable(Constants.EXTRA_OTALIA_FACING, Facing.BACK);
         demoList.add(new Demo("Otalia Camera (Back)", OtaliaCameraActivity.class, otaliaBundle));
+
+        demoList.add(new Demo("Firebase Barcode Detector", FirebaseBarcodeDetectorActivity.class));
 
         return demoList;
     }

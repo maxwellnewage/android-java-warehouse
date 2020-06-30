@@ -14,7 +14,7 @@ import ar.com.maxwell.android_warehouse.commons.Utils;
 public class CustomCameraFrontActivity extends CustomCameraActivity {
 
     @Override
-    void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
+    public void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
         Preview preview = new Preview.Builder().build();
 
         CameraSelector cameraSelector = new CameraSelector.Builder()

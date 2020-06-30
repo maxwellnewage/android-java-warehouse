@@ -21,8 +21,8 @@ import ar.com.maxwell.android_warehouse.BaseActivity;
 import ar.com.maxwell.android_warehouse.R;
 
 public abstract class CustomCameraActivity extends BaseActivity {
-    PreviewView mPreviewView;
-    ImageView ivPreview;
+    public PreviewView mPreviewView;
+    public ImageView ivPreview;
     private int REQUEST_CODE_PERMISSIONS = 1001;
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
     public Executor executor = Executors.newSingleThreadExecutor();
@@ -59,7 +59,7 @@ public abstract class CustomCameraActivity extends BaseActivity {
         }, ContextCompat.getMainExecutor(this));
     }
 
-    abstract void bindPreview(@NonNull ProcessCameraProvider cameraProvider);
+    public abstract void bindPreview(@NonNull ProcessCameraProvider cameraProvider);
 
     private boolean allPermissionsGranted() {
         for (String permission : REQUIRED_PERMISSIONS) {
