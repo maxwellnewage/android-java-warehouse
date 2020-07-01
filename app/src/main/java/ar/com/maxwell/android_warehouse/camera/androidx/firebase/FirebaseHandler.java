@@ -25,12 +25,9 @@ public class FirebaseHandler {
     public FirebaseVisionTextRecognizer textRecognizer;
     private FirebaseVisionImageMetadata metadata;
     private FirebaseVisionImage firebaseVisionImage;
-    private DetectionType detectionType;
 
     public FirebaseHandler(DetectionType detectionType) {
         setMetadata();
-
-        this.detectionType = detectionType;
 
         switch (detectionType) {
             case OCR:
@@ -48,15 +45,15 @@ public class FirebaseHandler {
         }
     }
 
-    public void initOCR() {
+    private void initOCR() {
         textRecognizer = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
     }
 
-    public void initBarcode() {
+    private void initBarcode() {
         barcodeDetector = FirebaseVision.getInstance().getVisionBarcodeDetector();
     }
 
-    public void initFaceSoftDetection() {
+    private void initFaceSoftDetection() {
         FirebaseVisionFaceDetectorOptions faceOptions = new FirebaseVisionFaceDetectorOptions.Builder()
                 .setPerformanceMode(FirebaseVisionFaceDetectorOptions.FAST)
                 .setClassificationMode(FirebaseVisionFaceDetectorOptions.NO_CLASSIFICATIONS)
@@ -74,7 +71,7 @@ public class FirebaseHandler {
                 .build();
     }
 
-    public void initFaceHardDetection() {
+    private void initFaceHardDetection() {
         FirebaseVisionFaceDetectorOptions faceOptions = new FirebaseVisionFaceDetectorOptions.Builder()
                 .setPerformanceMode(FirebaseVisionFaceDetectorOptions.FAST)
                 .setContourMode(FirebaseVisionFaceDetectorOptions.ALL_CONTOURS)
