@@ -3,41 +3,38 @@ package ar.com.maxwell.android_warehouse.camera.androidx.firebase;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.media.Image;
+import android.util.Log;
 
-import com.google.firebase.ml.vision.FirebaseVision;
-import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode;
-import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetector;
-import com.google.firebase.ml.vision.common.FirebaseVisionImage;
-import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata;
-import com.google.firebase.ml.vision.face.FirebaseVisionFace;
-import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetector;
-import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions;
-import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.mlkit.vision.common.InputImage;
+import com.google.mlkit.vision.face.Face;
+import com.google.mlkit.vision.face.FaceDetection;
+import com.google.mlkit.vision.face.FaceDetector;
+import com.google.mlkit.vision.face.FaceDetectorOptions;
 
 import java.io.IOException;
+import java.util.List;
 
+import androidx.annotation.NonNull;
 import ar.com.maxwell.android_warehouse.camera.androidx.firebase.callbacks.OnFaceDetection;
+import ar.com.maxwell.android_warehouse.camera.androidx.firebase.callbacks.OnImageProcess;
 import ar.com.maxwell.android_warehouse.camera.androidx.firebase.callbacks.OnTextDetection;
 
 public class FirebaseHandler {
-    public FirebaseVisionFaceDetector faceDetector;
-    public FirebaseVisionBarcodeDetector barcodeDetector;
-    public FirebaseVisionTextRecognizer textRecognizer;
-    private FirebaseVisionImageMetadata metadata;
-    private FirebaseVisionImage firebaseVisionImage;
+    FaceDetectorOptions faceOptions;
 
     public FirebaseHandler(DetectionType detectionType) {
-        setMetadata();
-
         switch (detectionType) {
             case OCR:
-                initOCR();
+//                initOCR();
                 break;
             case SOFT_FACE:
                 initFaceSoftDetection();
                 break;
             case BARCODE:
-                initBarcode();
+//                initBarcode();
                 break;
             case HARD_FACE:
                 initFaceHardDetection();
@@ -45,88 +42,65 @@ public class FirebaseHandler {
         }
     }
 
-    private void initOCR() {
-        textRecognizer = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
-    }
-
-    private void initBarcode() {
-        barcodeDetector = FirebaseVision.getInstance().getVisionBarcodeDetector();
-    }
+//    private void initOCR() {
+//        textRecognizer = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
+//    }
+//
+//    private void initBarcode() {
+//        barcodeDetector = FirebaseVision.getInstance().getVisionBarcodeDetector();
+//    }
 
     private void initFaceSoftDetection() {
-        FirebaseVisionFaceDetectorOptions faceOptions = new FirebaseVisionFaceDetectorOptions.Builder()
-                .setPerformanceMode(FirebaseVisionFaceDetectorOptions.FAST)
-                .setClassificationMode(FirebaseVisionFaceDetectorOptions.NO_CLASSIFICATIONS)
-                .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
-                .build();
-
-        initFaceDetector(faceOptions);
-    }
-
-    private void setMetadata() {
-        metadata = new FirebaseVisionImageMetadata.Builder()
-                .setWidth(480)
-                .setHeight(360)
-                .setFormat(FirebaseVisionImageMetadata.IMAGE_FORMAT_NV21)
+        faceOptions = new FaceDetectorOptions.Builder()
+                .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_FAST)
+                .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_NONE)
+                .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
                 .build();
     }
 
     private void initFaceHardDetection() {
-        FirebaseVisionFaceDetectorOptions faceOptions = new FirebaseVisionFaceDetectorOptions.Builder()
-                .setPerformanceMode(FirebaseVisionFaceDetectorOptions.FAST)
-                .setContourMode(FirebaseVisionFaceDetectorOptions.ALL_CONTOURS)
-                .setClassificationMode(FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS)
+        faceOptions = new FaceDetectorOptions.Builder()
+                .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_FAST)
+                .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_ALL)
+                .setContourMode(FaceDetectorOptions.CONTOUR_MODE_ALL)
                 .build();
-
-        initFaceDetector(faceOptions);
     }
 
-    private void initFaceDetector(FirebaseVisionFaceDetectorOptions faceOptions) {
-        faceDetector = FirebaseVision.getInstance().getVisionFaceDetector(faceOptions);
-    }
+    public void processFace(Image mediaImage, int rotation, OnFaceDetection detection, OnImageProcess onImageProcess) {
+        InputImage inputImage = InputImage.fromMediaImage(mediaImage, rotation);
 
-    public void setVisionImageFromByteArray(byte[] frameData) {
-        firebaseVisionImage = FirebaseVisionImage.fromByteArray(frameData, metadata);
-    }
-
-    public void setVisionImageFromMediaImage(Image mediaImage, int rotation) {
-        firebaseVisionImage = FirebaseVisionImage.fromMediaImage(mediaImage, rotation);
-    }
-
-    public void processFace(OnFaceDetection detection) {
-        faceDetector.detectInImage(firebaseVisionImage).addOnSuccessListener(firebaseVisionFaces -> {
-            for (FirebaseVisionFace face : firebaseVisionFaces) {
-                // Solo la primer cara
-                detection.onSuccess(face);
-                break;
+        FaceDetection.getClient(faceOptions).process(inputImage).addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
+                for(Face face : task.getResult()) {
+                    detection.onSuccess(face);
+                    break;
+                }
             }
+
+            onImageProcess.onComplete();
+        }).addOnFailureListener(e -> {
+            Log.e("fail", e.getMessage());
         });
     }
 
-    public void processOCR(OnTextDetection detection) {
-        textRecognizer.processImage(firebaseVisionImage).addOnSuccessListener(firebaseVisionText -> detection.onSuccess(firebaseVisionText.getText()));
-    }
+//    public void processOCR(OnTextDetection detection) {
+//        textRecognizer.processImage(firebaseVisionImage).addOnSuccessListener(firebaseVisionText -> detection.onSuccess(firebaseVisionText.getText()));
+//    }
+//
+//    public void processBarcode(OnTextDetection detection) {
+//        barcodeDetector.detectInImage(firebaseVisionImage)
+//                .addOnSuccessListener(barcodes -> {
+//                    for (FirebaseVisionBarcode barcode : barcodes) {
+//                        detection.onSuccess(barcode.getRawValue());
+//                    }
+//                });
+//    }
 
-    public void processBarcode(OnTextDetection detection) {
-        barcodeDetector.detectInImage(firebaseVisionImage)
-                .addOnSuccessListener(barcodes -> {
-                    for (FirebaseVisionBarcode barcode : barcodes) {
-                        detection.onSuccess(barcode.getRawValue());
-                    }
-                });
-    }
-
-    public Bitmap cutFace(Bitmap fbBmp, Rect box) {
+    public Bitmap cropFace(Bitmap fbBmp, Rect box) {
         return Bitmap.createBitmap(fbBmp, box.left, box.top, box.width(), box.height());
     }
 
     public void closeDetectors() {
-        try {
-            if (faceDetector != null) faceDetector.close();
-            if (barcodeDetector != null) barcodeDetector.close();
-            if (textRecognizer != null) textRecognizer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FaceDetection.getClient(faceOptions).close();
     }
 }

@@ -33,7 +33,8 @@
         <activity android:name=".camera.androidx.CustomCameraBackActivity" android:theme="@style/Theme.AppCompat.NoActionBar" android:screenOrientation="landscape" />
         <activity android:name=".camera.androidx.CustomCameraFrontActivity" android:theme="@style/Theme.AppCompat.NoActionBar" android:screenOrientation="portrait" />
         <activity android:name=".camera.otaliastudios.OtaliaCameraActivity" android:theme="@style/Theme.AppCompat.NoActionBar" android:screenOrientation="portrait" />
-        <activity android:name=".camera.androidx.firebase.FirebaseBarcodeDetectorActivity" android:theme="@style/Theme.AppCompat.NoActionBar" android:screenOrientation="portrait" />
+        <activity android:name=".camera.androidx.firebase.FirebaseBarcodeDetectorActivity" android:theme="@style/Theme.AppCompat.NoActionBar" android:screenOrientation="landscape" />
+        <activity android:name=".camera.androidx.firebase.FirebaseFaceDetectorActivity" android:theme="@style/Theme.AppCompat.NoActionBar" android:screenOrientation="landscape" />
         <activity android:name=".camera.SimpleCameraActivity" android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <activity android:name=".network.CatPhotoActivity" android:parentActivityName=".MainActivity" />

@@ -13,6 +13,7 @@ import androidx.camera.core.ImageProxy;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import ar.com.maxwell.android_warehouse.camera.androidx.CustomCameraActivity;
+import ar.com.maxwell.android_warehouse.camera.androidx.firebase.callbacks.OnImageProcess;
 import ar.com.maxwell.android_warehouse.commons.Utils;
 
 @androidx.camera.core.ExperimentalGetImage
@@ -26,7 +27,7 @@ public class FirebaseBarcodeDetectorActivity extends FirebaseDetectorActivity {
     }
 
     @Override
-    public void processImage(ImageProxy imageProxy) {
+    public void processImage(ImageProxy imageProxy, OnImageProcess onImageProcess) {
 
     }
 }

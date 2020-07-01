@@ -68,7 +68,7 @@ public class OtaliaCameraActivity extends BaseActivity implements FrameProcessor
 
         byte[] finalData = Utils.NV21toJPEG(frame.getData(), width, height);
 
-        Bitmap bitmap = Utils.getImageFromByteArray(finalData);
+        Bitmap bitmap = Utils.getBitmapFromByteArray(finalData);
 
         runOnUiThread(() -> ivPreview.setImageBitmap(bitmap));
     }

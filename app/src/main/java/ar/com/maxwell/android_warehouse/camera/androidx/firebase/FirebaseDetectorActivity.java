@@ -12,10 +12,17 @@ import androidx.camera.core.ImageProxy;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import ar.com.maxwell.android_warehouse.camera.androidx.CustomCameraActivity;
+import ar.com.maxwell.android_warehouse.camera.androidx.firebase.callbacks.OnImageProcess;
 import ar.com.maxwell.android_warehouse.commons.Utils;
 
 @androidx.camera.core.ExperimentalGetImage
 public abstract class FirebaseDetectorActivity extends CustomCameraActivity {
+    public FirebaseHandler firebaseHandler;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
@@ -31,8 +38,7 @@ public abstract class FirebaseDetectorActivity extends CustomCameraActivity {
         imageAnalysis.setAnalyzer(executor, image -> {
 
             if(image.getImage() != null) {
-                processImage(image);
-                image.close();
+                processImage(image, image::close);
             }
 
         });
@@ -41,5 +47,5 @@ public abstract class FirebaseDetectorActivity extends CustomCameraActivity {
         Camera camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalysis);
     }
 
-    public abstract void processImage(ImageProxy imageProxy);
+    public abstract void processImage(ImageProxy imageProxy, OnImageProcess onImageProcess);
 }

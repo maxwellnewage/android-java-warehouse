@@ -62,5 +62,7 @@ dependencies {
     implementation 'com.otaliastudios:cameraview:2.6.2'
 
     // FIREBASE
-    implementation 'com.google.firebase:firebase-ml-vision:24.0.3'
+    implementation 'com.google.mlkit:barcode-scanning:16.0.0'
+    implementation 'com.google.mlkit:face-detection:16.0.1'
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:16.0.0'
 }

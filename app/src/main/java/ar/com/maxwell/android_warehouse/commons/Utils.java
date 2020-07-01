@@ -40,7 +40,7 @@ public class Utils {
         return out.toByteArray();
     }
 
-    public static Bitmap getImageFromByteArray(byte[] data){
+    public static Bitmap getBitmapFromByteArray(byte[] data){
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inMutable = true;
         Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length, options);

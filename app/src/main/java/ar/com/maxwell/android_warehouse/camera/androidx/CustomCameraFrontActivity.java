@@ -29,7 +29,7 @@ public class CustomCameraFrontActivity extends CustomCameraActivity {
             if(image.getImage() != null) {
                 byte[] data = Utils.YUV_420_888toNV21(image.getImage());
                 byte[] finalData = Utils.NV21toJPEG(data, image.getWidth(), image.getHeight());
-                Bitmap bitmap = Utils.getImageFromByteArray(finalData);
+                Bitmap bitmap = Utils.getBitmapFromByteArray(finalData);
 
                 runOnUiThread(() -> ivPreview.setImageBitmap(bitmap));
             }
