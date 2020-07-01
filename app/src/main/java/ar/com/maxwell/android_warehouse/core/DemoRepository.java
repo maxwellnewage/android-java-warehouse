@@ -40,7 +40,7 @@ public class DemoRepository {
         demoList.add(new Demo("Otalia Camera (Back)", OtaliaCameraActivity.class, otaliaBundle));
 
         demoList.add(new Demo("Firebase Face Detector", FirebaseFaceDetectorActivity.class));
-        demoList.add(new Demo("Firebase Barcode Detector", FirebaseFaceDetectorActivity.class));
+        demoList.add(new Demo("Firebase Barcode Detector", FirebaseBarcodeDetectorActivity.class));
 
         return demoList;
     }

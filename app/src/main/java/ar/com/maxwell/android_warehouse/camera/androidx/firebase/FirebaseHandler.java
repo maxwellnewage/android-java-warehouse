@@ -5,19 +5,13 @@ import android.graphics.Rect;
 import android.media.Image;
 import android.util.Log;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
+import com.google.mlkit.vision.barcode.Barcode;
+import com.google.mlkit.vision.barcode.BarcodeScanning;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.face.Face;
 import com.google.mlkit.vision.face.FaceDetection;
-import com.google.mlkit.vision.face.FaceDetector;
 import com.google.mlkit.vision.face.FaceDetectorOptions;
 
-import java.io.IOException;
-import java.util.List;
-
-import androidx.annotation.NonNull;
 import ar.com.maxwell.android_warehouse.camera.androidx.firebase.callbacks.OnFaceDetection;
 import ar.com.maxwell.android_warehouse.camera.androidx.firebase.callbacks.OnImageProcess;
 import ar.com.maxwell.android_warehouse.camera.androidx.firebase.callbacks.OnTextDetection;
@@ -27,17 +21,11 @@ public class FirebaseHandler {
 
     public FirebaseHandler(DetectionType detectionType) {
         switch (detectionType) {
-            case OCR:
-//                initOCR();
-                break;
             case SOFT_FACE:
-                initFaceSoftDetection();
-                break;
-            case BARCODE:
-//                initBarcode();
+                setFaceSoftDetectionOptions();
                 break;
             case HARD_FACE:
-                initFaceHardDetection();
+                setFaceHardDetectionOptions();
                 break;
         }
     }
@@ -50,7 +38,7 @@ public class FirebaseHandler {
 //        barcodeDetector = FirebaseVision.getInstance().getVisionBarcodeDetector();
 //    }
 
-    private void initFaceSoftDetection() {
+    private void setFaceSoftDetectionOptions() {
         faceOptions = new FaceDetectorOptions.Builder()
                 .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_FAST)
                 .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_NONE)
@@ -58,7 +46,7 @@ public class FirebaseHandler {
                 .build();
     }
 
-    private void initFaceHardDetection() {
+    private void setFaceHardDetectionOptions() {
         faceOptions = new FaceDetectorOptions.Builder()
                 .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_FAST)
                 .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_ALL)
@@ -78,6 +66,22 @@ public class FirebaseHandler {
             }
 
             onImageProcess.onComplete();
+        }).addOnFailureListener(e -> {
+            Log.e("fail", e.getMessage());
+        });
+    }
+
+    public void processBarcode(Image mediaImage, int rotation, OnTextDetection detection, OnImageProcess onImageProcess) {
+        InputImage inputImage = InputImage.fromMediaImage(mediaImage, rotation);
+
+        BarcodeScanning.getClient().process(inputImage).addOnCompleteListener(task -> {
+           if(task.isSuccessful()) {
+               for(Barcode barcode : task.getResult()) {
+                   detection.onSuccess(barcode.getRawValue());
+               }
+           }
+
+           onImageProcess.onComplete();
         }).addOnFailureListener(e -> {
             Log.e("fail", e.getMessage());
         });

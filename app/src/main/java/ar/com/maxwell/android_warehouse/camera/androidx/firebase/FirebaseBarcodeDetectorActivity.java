@@ -1,6 +1,7 @@
 package ar.com.maxwell.android_warehouse.camera.androidx.firebase;
 
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 
@@ -24,10 +25,16 @@ public class FirebaseBarcodeDetectorActivity extends FirebaseDetectorActivity {
         super.onCreate(savedInstanceState);
 
         ivPreview.setVisibility(View.GONE);
+        firebaseHandler = new FirebaseHandler(DetectionType.BARCODE);
     }
 
     @Override
     public void processImage(ImageProxy imageProxy, OnImageProcess onImageProcess) {
+        Image mediaImage = imageProxy.getImage();
+        int rotation = imageProxy.getImageInfo().getRotationDegrees();
 
+        firebaseHandler.processBarcode(mediaImage, rotation, barcode -> {
+
+        }, onImageProcess);
     }
 }
