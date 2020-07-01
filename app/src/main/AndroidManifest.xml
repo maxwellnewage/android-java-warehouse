@@ -38,6 +38,10 @@
 
         <activity android:name=".network.CatPhotoActivity" android:parentActivityName=".MainActivity" />
         <activity android:name=".viewpager.SimpleVPActivity" android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="face,ocr,barcode" />
     </application>
 
 </manifest>
