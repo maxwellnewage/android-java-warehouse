@@ -5,12 +5,15 @@ import android.graphics.Rect;
 import android.media.Image;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.mlkit.vision.barcode.Barcode;
 import com.google.mlkit.vision.barcode.BarcodeScanning;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.face.Face;
 import com.google.mlkit.vision.face.FaceDetection;
 import com.google.mlkit.vision.face.FaceDetectorOptions;
+
+import java.util.List;
 
 import ar.com.maxwell.android_warehouse.camera.androidx.firebase.callbacks.OnFaceDetection;
 import ar.com.maxwell.android_warehouse.camera.androidx.firebase.callbacks.OnImageProcess;
@@ -74,16 +77,22 @@ public class FirebaseHandler {
     public void processBarcode(Image mediaImage, int rotation, OnTextDetection detection, OnImageProcess onImageProcess) {
         InputImage inputImage = InputImage.fromMediaImage(mediaImage, rotation);
 
-        BarcodeScanning.getClient().process(inputImage).addOnCompleteListener(task -> {
-           if(task.isSuccessful()) {
-               for(Barcode barcode : task.getResult()) {
-                   detection.onSuccess(barcode.getRawValue());
-               }
-           }
+//        .addOnCompleteListener(task -> {
+//            if(task.isSuccessful()) {
+//                for(Barcode barcode : task.getResult()) {
+//                    detection.onSuccess(barcode.getRawValue());
+//                }
+//            }
+//
+//            onImageProcess.onComplete();
+//        })
 
-           onImageProcess.onComplete();
-        }).addOnFailureListener(e -> {
+        BarcodeScanning.getClient().process(inputImage).addOnFailureListener(e -> {
             Log.e("fail", e.getMessage());
+        }).addOnSuccessListener(barcodes -> {
+            for(Barcode barcode : barcodes) {
+                detection.onSuccess(barcode.getRawValue());
+            }
         });
     }
 
