@@ -24,11 +24,11 @@ public class FirebaseFaceDetectorActivity extends FirebaseDetectorActivity {
     @Override
     public void processImage(ImageProxy imageProxy, OnImageProcess onImageProcess) {
         Image mediaImage = imageProxy.getImage();
+        byte[] data = Utils.YUV_420_888toNV21(mediaImage);
         int rotation = imageProxy.getImageInfo().getRotationDegrees();
 
         firebaseHandler.processFace(mediaImage, rotation, face -> {
             Rect rect = face.getBoundingBox();
-            byte[] data = Utils.YUV_420_888toNV21(mediaImage);
             byte[] finalData = Utils.NV21toJPEG(data, mediaImage.getWidth(), mediaImage.getHeight());
             Bitmap bmpFrame = Utils.getBitmapFromByteArray(finalData);
             Bitmap bitmap = firebaseHandler.cropFace(bmpFrame, rect);

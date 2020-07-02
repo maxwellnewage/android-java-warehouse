@@ -1,7 +1,7 @@
 package ar.com.maxwell.android_warehouse.camera.androidx.firebase.callbacks;
 
-import com.google.mlkit.vision.face.Face;
+import com.google.firebase.ml.vision.face.FirebaseVisionFace;
 
 public interface OnFaceDetection {
-    void onSuccess(Face face);
+    void onSuccess(FirebaseVisionFace face);
 }
