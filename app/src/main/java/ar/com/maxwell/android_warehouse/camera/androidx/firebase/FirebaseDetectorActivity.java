@@ -42,7 +42,6 @@ public abstract class FirebaseDetectorActivity extends CustomCameraActivity {
                 processImage(image, image::close);
             }
 
-            image.close();
         });
 
         preview.setSurfaceProvider(mPreviewView.createSurfaceProvider());

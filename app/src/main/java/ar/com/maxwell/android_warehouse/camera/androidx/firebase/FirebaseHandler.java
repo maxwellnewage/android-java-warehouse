@@ -53,7 +53,17 @@ public class FirebaseHandler {
                 .build();
     }
 
+    private void rewindPlanes(Image mediaImage) {
+        if(mediaImage.getPlanes().length >= 3) {
+            for(Image.Plane plane : mediaImage.getPlanes()) {
+                plane.getBuffer().rewind();
+            }
+        }
+    }
+
     public void processFace(Image mediaImage, int rotation, OnFaceDetection detection, OnImageProcess onImageProcess) {
+        rewindPlanes(mediaImage);
+
         FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromMediaImage(mediaImage, rotation);
 
         FirebaseVision.getInstance()
@@ -62,10 +72,15 @@ public class FirebaseHandler {
                 .addOnSuccessListener(firebaseVisionFaces -> {
                     for(FirebaseVisionFace face : firebaseVisionFaces) {
                         detection.onSuccess(face);
+                        Log.e("detection", "face_detected");
                         break;
                     }
+                    onImageProcess.onComplete();
                 })
-                .addOnFailureListener(e -> Log.e("fail", e.getMessage()));
+                .addOnFailureListener(e -> {
+                    Log.e("fail", e.getMessage());
+                    onImageProcess.onComplete();
+                });
     }
 
     public void processBarcode(Image mediaImage, int rotation, OnTextDetection detection, OnImageProcess onImageProcess) {
@@ -76,10 +91,16 @@ public class FirebaseHandler {
                 .detectInImage(firebaseVisionImage)
                 .addOnSuccessListener(barcodes -> {
                     for (FirebaseVisionBarcode barcode : barcodes) {
+                        Log.e("detection", barcode.getRawValue());
                         detection.onSuccess(barcode.getRawValue());
+                        break;
                     }
+                    onImageProcess.onComplete();
                 })
-                .addOnFailureListener(e -> Log.e("fail", e.getMessage()));
+                .addOnFailureListener(e -> {
+                    Log.e("fail", e.getMessage());
+                    onImageProcess.onComplete();
+                });
     }
 
     public void processOCR(Image mediaImage, int rotation, OnTextDetection detection, OnImageProcess onImageProcess) {
