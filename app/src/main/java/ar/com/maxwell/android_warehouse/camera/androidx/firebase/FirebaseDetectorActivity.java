@@ -1,6 +1,7 @@
 package ar.com.maxwell.android_warehouse.camera.androidx.firebase;
 
 import android.os.Bundle;
+import android.util.Size;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ public abstract class FirebaseDetectorActivity extends CustomCameraActivity {
                 .build();
 
         ImageAnalysis imageAnalysis = new ImageAnalysis.Builder()
+                .setTargetResolution(new Size(1920, 1080))
                 .build();
 
         imageAnalysis.setAnalyzer(executor, image -> {

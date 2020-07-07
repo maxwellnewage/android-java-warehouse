@@ -12,6 +12,7 @@ import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode;
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetector;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata;
 import com.google.firebase.ml.vision.face.FirebaseVisionFace;
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
@@ -22,6 +23,7 @@ import androidx.annotation.NonNull;
 import ar.com.maxwell.android_warehouse.camera.androidx.firebase.callbacks.OnFaceDetection;
 import ar.com.maxwell.android_warehouse.camera.androidx.firebase.callbacks.OnImageProcess;
 import ar.com.maxwell.android_warehouse.camera.androidx.firebase.callbacks.OnTextDetection;
+import ar.com.maxwell.android_warehouse.commons.Utils;
 
 public class FirebaseHandler {
     FirebaseVisionFaceDetectorOptions faceOptions;
@@ -84,7 +86,16 @@ public class FirebaseHandler {
     }
 
     public void processBarcode(Image mediaImage, int rotation, OnTextDetection detection, OnImageProcess onImageProcess) {
-        FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromMediaImage(mediaImage, rotation);
+        byte[] data = Utils.YUV_420_888toNV21(mediaImage);
+
+        FirebaseVisionImageMetadata metadata = new FirebaseVisionImageMetadata.Builder()
+                .setWidth(mediaImage.getWidth())
+                .setHeight(mediaImage.getHeight())
+                .setFormat(FirebaseVisionImageMetadata.IMAGE_FORMAT_NV21)
+                .setRotation(rotation)
+                .build();
+
+        FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromByteArray(data, metadata);
 
         FirebaseVision.getInstance()
                 .getVisionBarcodeDetector()
