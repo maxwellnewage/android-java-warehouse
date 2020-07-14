@@ -35,7 +35,7 @@ public abstract class FirebaseDetectorActivity extends CustomCameraActivity {
                 .build();
 
         ImageAnalysis imageAnalysis = new ImageAnalysis.Builder()
-                .setTargetResolution(new Size(1920, 1080))
+                .setTargetResolution(new Size(800, 600))
                 .build();
 
         imageAnalysis.setAnalyzer(executor, image -> {

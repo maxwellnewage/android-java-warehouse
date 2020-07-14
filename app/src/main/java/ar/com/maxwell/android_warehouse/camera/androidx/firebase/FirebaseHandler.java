@@ -86,16 +86,7 @@ public class FirebaseHandler {
     }
 
     public void processBarcode(Image mediaImage, int rotation, OnTextDetection detection, OnImageProcess onImageProcess) {
-        byte[] data = Utils.YUV_420_888toNV21(mediaImage);
-
-        FirebaseVisionImageMetadata metadata = new FirebaseVisionImageMetadata.Builder()
-                .setWidth(mediaImage.getWidth())
-                .setHeight(mediaImage.getHeight())
-                .setFormat(FirebaseVisionImageMetadata.IMAGE_FORMAT_NV21)
-                .setRotation(rotation)
-                .build();
-
-        FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromByteArray(data, metadata);
+        FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromMediaImage(mediaImage, rotation);
 
         FirebaseVision.getInstance()
                 .getVisionBarcodeDetector()
@@ -103,6 +94,7 @@ public class FirebaseHandler {
                 .addOnSuccessListener(barcodes -> {
                     for (FirebaseVisionBarcode barcode : barcodes) {
                         Log.e("detection", barcode.getRawValue());
+
                         detection.onSuccess(barcode.getRawValue());
                         break;
                     }
